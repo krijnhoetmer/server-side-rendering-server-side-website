@@ -1,0 +1,15 @@
+<nav>
+	<ul>
+		<li>
+			<a href="/"
+				<% if (current == '/') { %>
+					class="active"
+				<% } %>
+			>Home</a>
+		</li>
+		<li>
+			<a href="/pizzas"<% if (current == '/pizzas') { %> class="active"<% } %>>Pizza's</a></li>
+		<li>
+			<a href="/contact"<% if (current == '/contact') { %> class="active"<% } %>>Contact</a></li>
+	</ul>
+</nav>

@@ -1,0 +1,13 @@
+<%- include('partials/navigatie', {current: '/pizzas'}); %>
+
+<h1>Onze pizza's</h1>
+
+<% pizzas.forEach(function(pizza) { %>
+	<article>
+		<h2><a href="/pizzas/<%= pizza.id %>"><%= pizza.name %></a></h2>
+		<p>€<%= pizza.price %></p>
+		<% if (pizza.image) { %>
+		<img src="https://fdnd-agency.directus.app/assets/<%= pizza.image %>">
+		<% } %>
+	</article>
+<% }) %>

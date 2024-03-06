@@ -1,0 +1,8 @@
+<%- include('partials/navigatie', {current: '/pizzas'}); %>
+
+<h1><%= pizza.name %></h1>
+<p>€<%= pizza.price %></p>
+<% if (pizza.image) { %>
+<img src="https://fdnd-agency.directus.app/assets/<%= pizza.image %>">
+<% } %>
+<%- pizza.description %>
