@@ -43,7 +43,17 @@ app.get('/winkelmandje', function(request, response) {
 })
 
 app.post('/winkelmandje', function(request, response) {
+
+  // Voeg de tekst uit de hidden input toe aan onze bestelling
+  // In het echt zou je dit anders doen, maar voor deze demo is dit prima
   winkelmandje.push(request.body.bestelling)
+
+  // Als onze POST request de 'enhanced' property heeft, werd deze door
+  // client-side JS afgevuurd. In dat geval willen we alleen een partial
+  // renderen/terugsturen. De client-side JS gebruikt dat stukje HTML om
+  // de UI state snel en makkelijk te updaten.
+  // Als er geen 'enhanced' property is, dan was het een 'normale' browser
+  // POST, en sturen we de gebruiker door naar het overzicht van het mandje.
   if (request.body.enhanced) {
     response.render('partials/winkelmandje', {winkelmandje: winkelmandje})
   } else {
