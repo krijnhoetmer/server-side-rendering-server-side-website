@@ -1,8 +1,16 @@
-<%- include('partials/navigatie', {current: '/pizzas'}); %>
+<%- include('partials/head', {current: '/pizzas'}); %>
 
-<h1><%= pizza.name %></h1>
+<h2><%= pizza.name %></h2>
+
 <p>€<%= pizza.price %></p>
 <% if (pizza.image) { %>
-<img src="https://fdnd-agency.directus.app/assets/<%= pizza.image %>">
+  <img src="https://fdnd-agency.directus.app/assets/<%= pizza.image.id %>" width="<%= pizza.image.width %>" height="<%= pizza.image.height %>">
 <% } %>
 <%- pizza.description %>
+
+<form method="post" action="/winkelmandje" class="bestel-maar">
+  <input type="hidden" name="bestelling" value="<%= pizza.name %> €<%= pizza.price %>">
+  <button type="submit">Bestel</button>
+</form>
+
+<%- include('partials/foot'); %>

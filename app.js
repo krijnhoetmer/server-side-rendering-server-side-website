@@ -19,26 +19,38 @@ app.use(express.static('public'))
 // Zorg dat werken met request data makkelijker wordt
 app.use(express.urlencoded({extended: true}))
 
-
-// TODO: routes voor deze pizza applicatie..
+// In deze array gaan we onze bestelling opslaan
+let winkelmandje = []
 
 app.get('/', function(request, response) {
-	response.render('homepage')
+  response.render('homepage', {winkelmandje: winkelmandje})
 })
 
 app.get('/pizzas', function(request, response) {
-
-	fetchJson('https://fdnd-agency.directus.app/items/demo_pizzas').then((pizzasDataUitDeAPI) => {
-		response.render('pizzas', {pizzas: pizzasDataUitDeAPI.data})
-	});
-	
+  fetchJson('https://fdnd-agency.directus.app/items/demo_pizzas?fields=*,image.id,image.height,image.width').then((pizzasDataUitDeAPI) => {
+    response.render('pizzas', {pizzas: pizzasDataUitDeAPI.data, winkelmandje: winkelmandje})
+  });
 })
 
 app.get('/pizzas/:pizza', function(request, response) {
-	fetchJson('https://fdnd-agency.directus.app/items/demo_pizzas?filter={"id":' + request.params.pizza + '}').then((pizzaDetail) => {
-		response.render('pizza', {pizza: pizzaDetail.data[0]})
-	})
+  fetchJson('https://fdnd-agency.directus.app/items/demo_pizzas?fields=*,image.id,image.height,image.width&filter={"id":' + request.params.pizza + '}').then((pizzaDetail) => {
+    response.render('pizza', {pizza: pizzaDetail.data[0], winkelmandje: winkelmandje})
+  })
 })
+
+app.get('/winkelmandje', function(request, response) {
+  response.render('winkelmandje', {winkelmandje: winkelmandje})
+})
+
+app.post('/winkelmandje', function(request, response) {
+  winkelmandje.push(request.body.bestelling)
+  if (request.body.enhanced) {
+    response.render('partials/winkelmandje', {winkelmandje: winkelmandje})
+  } else {
+    response.redirect(303, '/winkelmandje')
+  }
+})
+
 
 
 // Stel het poortnummer in waar express op moet gaan luisteren

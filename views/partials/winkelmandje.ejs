@@ -1,0 +1,9 @@
+<% if (winkelmandje.length) { %>
+  <ul>
+    <% winkelmandje.forEach(function(item) { %>
+      <li><%= item %></li>
+    <% }) %>
+  </ul>
+<% } else { %>
+  <p>Er zit nog niks in je winkelmandje</p>
+<% } %>
