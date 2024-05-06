@@ -2,12 +2,17 @@
 
 <h2>Onze pizza's</h2>
 
+<div class="pizzas">
 <% pizzas.forEach(function(pizza) { %>
   <article>
     <h2><a href="/pizzas/<%= pizza.id %>"><%= pizza.name %></a></h2>
     <p>€<%= pizza.price %></p>
     <% if (pizza.image) { %>
-      <img src="https://fdnd-agency.directus.app/assets/<%= pizza.image.id %>" width="<%= pizza.image.width %>" height="<%= pizza.image.height %>">
+      <picture>
+        <source srcset="https://fdnd-agency.directus.app/assets/<%= pizza.image.id %>?format=avif" type="image/avif">
+        <source srcset="https://fdnd-agency.directus.app/assets/<%= pizza.image.id %>?format=webp" type="image/webp">
+        <img src="https://fdnd-agency.directus.app/assets/<%= pizza.image.id %>" width="<%= pizza.image.width %>" height="<%= pizza.image.height %>">
+      </picture>
     <% } %>
 
     <form method="post" action="/winkelmandje" class="bestel-maar">
@@ -17,5 +22,6 @@
 
   </article>
 <% }) %>
+</div>
 
 <%- include('partials/foot'); %>

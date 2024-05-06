@@ -2,20 +2,23 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
     <title>PizzaRia</title>
     <link rel="stylesheet" href="/pizzaria.css">
     <script defer src="/pizzaria.js"></script>
   </head>
   <body>
     <header>
-      <h1>PizzaRia</h1>
-      <nav>
-        <ul>
-          <li><a href="/"<% if (current == '/') { %> class="active"<% } %>>Home</a></li>
-          <li><a href="/pizzas"<% if (current == '/pizzas') { %> class="active"<% } %>>Pizza's</a></li>
-          <li><a href="/winkelmandje"<% if (current == '/winkelmandje') { %> class="active"<% } %>>Winkelmandje</a></li>
-        </ul>
-      </nav>
+      <div>
+        <h1>PizzaRia</h1>
+        <nav>
+          <ul>
+            <li><a href="/"<% if (current == '/') { %> class="active"<% } %>>Home</a></li>
+            <li><a href="/pizzas"<% if (current == '/pizzas') { %> class="active"<% } %>>Pizza's</a></li>
+            <li><a href="/winkelmandje"<% if (current == '/winkelmandje') { %> class="active"<% } %>>Winkelmandje</a></li>
+          </ul>
+        </nav>
+      </div>
       <details>
         <summary>Winkelmandje</summary>
         <div id="winkelmandje-samenvatting">

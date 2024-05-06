@@ -1,9 +1,16 @@
-<% if (winkelmandje.length) { %>
+<%
+
+let total = 0;
+
+if (winkelmandje.length) {
+
+%>
   <ul>
-    <% winkelmandje.forEach(function(item) { %>
+    <% winkelmandje.forEach(function(item) { total += Number(item.substr(item.indexOf('€') + 1)) %>
       <li><%= item %></li>
     <% }) %>
   </ul>
+  <p>Totaal: <strong>€ <%= Math.round(total) %></strong></p>
 <% } else { %>
   <p>Er zit nog niks in je winkelmandje</p>
 <% } %>

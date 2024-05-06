@@ -8,6 +8,7 @@ forms.forEach(function(form) {
 	form.addEventListener('submit', function(event) {
 
 		// Het this object refereert hier naar het formulier zelf
+		let form = this
 
 		// Lees de data van het formulier in
 		// https://developer.mozilla.org/en-US/docs/Web/API/FormData
@@ -19,6 +20,7 @@ forms.forEach(function(form) {
 
 		// Waarschijnlijk wil je op deze plek ook een loading state
 		// maken, maar daar gaan we volgende week mee aan de slag
+		form.classList.add('is-loading')
 
 		// Gebruik een client-side fetch om een POST te doen naar de server
 		// Als URL gebruiken we this.action
@@ -38,14 +40,26 @@ forms.forEach(function(form) {
 			return response.text()
 
 		}).then(function(responseHTML) {
-			// En de HTML kunnen we gebruiken om onze DOM aan te passen
-			document.querySelector('#winkelmandje-samenvatting').innerHTML = responseHTML
 
 			// En hier kun je bijvoorbeeld nog wat extra's doen om duidelijker te maken
 			// dat er iets gebeurd is op de pagina
 			document.querySelector('details').open = true;
 
+			
+
+			// En de HTML kunnen we gebruiken om onze DOM aan te passen
+			// Met een View Transition als de browser dit ondersteunt
+			// Gebruik Feature Detection voor een Progressive Enhancement
+			if (document.startViewTransition) {
+				document.startViewTransition(function() {
+					document.querySelector('#winkelmandje-samenvatting').innerHTML = responseHTML
+				});
+			} else {
+				document.querySelector('#winkelmandje-samenvatting').innerHTML = responseHTML
+			}
+
 			// Een eventuele loading state haal je hier ook weer weg
+			form.classList.remove('is-loading')
 		});
 
 		// Als alles gelukt is, voorkom dan de submit van de browser zelf
